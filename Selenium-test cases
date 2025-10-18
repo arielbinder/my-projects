@@ -1,1 +1,122 @@
 #java
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TRUTH_TABLE {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chorme.driver", "C:\\automation\\drivers\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver(); 
+		driver.manage().window().maximize();
+		driver.get("https://www.saucedemo.com/"); 
+		tc1(driver, "standard_user", ""); 
+		tc2(driver, "", "secret_sauce"); 
+		tc3(driver, "ariel", "123456"); 
+		tc4(driver, "ariel", "secret_sauce"); 
+		tc5(driver, "standard_user", "123456"); 
+		tc6(driver, "", ""); 
+		tc7(driver, "ariel", ""); 
+		tc8(driver, "", "123456");
+		tc9(driver, "standard_user", "secret_sauce"); 
+	
+		
+	}
+
+	public static void LOGIN(WebDriver driver, String Username, String password) {
+		driver.navigate().refresh();
+		 try { Thread.sleep(1000); } catch (InterruptedException e) {}
+
+		driver.findElement(By.cssSelector("[name='user-name']")).sendKeys(Username); 
+		driver.findElement(By.cssSelector("#password")).sendKeys(password); 
+		driver.findElement(By.cssSelector(".submit-button.btn_action")).click(); 
+		
+		try { Thread.sleep(2000); } catch (InterruptedException e) {} 
+	}
+	//user name ---> Valid , password --->Null
+	public static void tc1(WebDriver driver, String Username, String password) {
+		LOGIN(driver, Username, password);
+		String expected = "Epic sadface: Password is required";
+		String actual = driver.findElement(By.cssSelector(" h3")).getText();
+		if (expected.equals(actual))
+			System.out.println("TC1_failed_login - test pass");
+		else
+			System.out.println("TC1_failed_login - test failed");
+	}
+	// user name ---> Null , password = Valid
+	public static void tc2(WebDriver driver, String Username, String password) {
+		LOGIN(driver, Username, password);
+		String expected = "Epic sadface: Username is required";
+		String actual = driver.findElement(By.cssSelector(" h3")).getText();
+		if (expected.equals(actual))
+			System.out.println("TC2_failed_login - test pass");
+		else
+			System.out.println("TC2_failed_login - test failed");
+	}
+	// user name ---> Invalid , password ---> Invalid 
+	public static void tc3(WebDriver driver, String Username, String password) {
+		LOGIN(driver, Username, password);
+		String expected = "Epic sadface: Username and password do not match any user in this service";
+		String actual = driver.findElement(By.cssSelector(" h3")).getText();
+		if (expected.equals(actual))
+			System.out.println("TC3_failed_login - test pass");
+		else
+			System.out.println("TC3_failed_login - test failed");
+	}
+	// user name ---> Invalid , password --->Valid
+	public static void tc4(WebDriver driver, String Username, String password) {
+		LOGIN(driver, Username, password);
+		String expected = "Epic sadface: Username and password do not match any user in this service";
+		String actual = driver.findElement(By.cssSelector(" h3")).getText();
+		if (expected.equals(actual))
+			System.out.println("TC4_failed_login - test pass");
+		else
+			System.out.println("TC4_failed_login - test failed");
+	}
+	//user name ---> Valid , password ---> Invalid
+	public static void tc5(WebDriver driver, String Username, String password) {
+		LOGIN(driver, Username, password);
+		String expected = "Epic sadface: Username and password do not match any user in this service";
+		String actual = driver.findElement(By.cssSelector(" h3")).getText();
+		if (expected.equals(actual))
+			System.out.println("TC5_failed_login - test pass");
+		else
+			System.out.println("TC5_failed_login - test failed");
+	}
+	// user name ---> Null , password ---> Null
+	public static void tc6(WebDriver driver, String Username, String password) {
+		LOGIN(driver, Username, password);
+		String exepected = "Epic sadface: Username is required";
+		String actual = driver.findElement(By.cssSelector(" h3")).getText();
+		if (exepected.equals(actual))
+			System.out.println("TC6_failed_login - test pass");
+		else
+			System.out.println("TC6_failed_login - test failed");
+	}
+	//user name ---> Invalid , password ---> Null
+	public static void tc7(WebDriver driver, String Username, String password) {
+		LOGIN(driver, Username, password);
+		String exepected = "Epic sadface: Password is required";
+		String actual = driver.findElement(By.cssSelector(" h3")).getText();
+		if (exepected.equals(actual))
+			System.out.println("TC7_failed_login - test pass");
+		else
+			System.out.println("TC7_failed_login - test failed");
+	}
+     // user name ---> Null , password ----> Invalid
+	public static void tc8(WebDriver driver, String Username, String password) {
+		LOGIN(driver, Username, password);
+		String exepected = "Epic sadface: Username is required";
+		String actual = driver.findElement(By.cssSelector(" h3")).getText();
+		if (exepected.equals(actual))
+			System.out.println("TC8_failed_login - test pass");
+		else
+			System.out.println("TC8_failed_login - test failed");
+	}
+	// user name ---> Valid , password ---> Valid
+	public static void tc9(WebDriver driver, String Username, String password) {
+		LOGIN(driver, Username, password);
+		driver.findElement(By.cssSelector(".title"));
+	}
+}
